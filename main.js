@@ -28,6 +28,7 @@ function init() {
   // UI CONTROLLER
   gui.add(spotLight, 'intensity', 0, 10); //object, property name, min val, max val
   gui.add(spotLight.position, 'y', 0, 5);
+  gui.add(spotLight, 'penumbra', 0, 1);
 
   //CAMERA
   var camera = new THREE.PerspectiveCamera(
