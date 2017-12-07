@@ -163,8 +163,8 @@ function update(renderer, scene, camera, controls, clock) {
   var timeElapsed = clock.getElapsedTime();
 
   var boxGrid = scene.getObjectByName('boxGrid');
-  boxGrid.children.forEach(function (child) {
-    child.scale.y = (Math.sin(timeElapsed * 5) +1) /2 + 0.001;
+  boxGrid.children.forEach(function (child, index) {
+    child.scale.y = (Math.sin(timeElapsed * 5 + index) +1) /2 + 0.001;
     child.position.y = child.scale.y/2;
 
   })
