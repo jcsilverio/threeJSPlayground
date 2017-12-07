@@ -12,12 +12,15 @@ function init() {
   var directionalLight = getDirectionalLight(1);
   var sphere = getSphere(0.05);
   var boxGrid = getBoxGrid(10, 1.5);
-  var helper = new THREE.CameraHelper(directionalLight.shadow.camera)
+  var helper = new THREE.CameraHelper(directionalLight.shadow.camera);
+  var ambientLight = getAmbientLight(1);
 
   plane.name = 'plane-1';
 
   plane.rotation.x = Math.PI / 2; // 90 degrees
+  directionalLight.position.x = 2;
   directionalLight.position.y = 2;
+  directionalLight.position.z = 2;
   directionalLight.intensity = 2;
 
   //SCENE
@@ -26,6 +29,7 @@ function init() {
   scene.add(directionalLight);
   scene.add(boxGrid);
   scene.add(helper);
+  scene.add(ambientLight);
 
 
   // UI CONTROLLER
@@ -153,6 +157,11 @@ function getDirectionalLight(intensity) {
   light.shadow.camera.bottom = -10;
   light.shadow.camera.right = 10;
   light.shadow.camera.top = 10;
+  return light;
+}
+
+function getAmbientLight(intensity) {
+  var light = new THREE.AmbientLight('rgb(10,30,50)', intensity);
   return light;
 }
 
