@@ -27,7 +27,9 @@ function init() {
 
   // UI CONTROLLER
   gui.add(spotLight, 'intensity', 0, 10); //object, property name, min val, max val
-  gui.add(spotLight.position, 'y', 0, 5);
+  gui.add(spotLight.position, 'x', 0, 20);
+  gui.add(spotLight.position, 'y', 0, 20);
+  gui.add(spotLight.position, 'z', 0, 20);
   gui.add(spotLight, 'penumbra', 0, 1);
 
   //CAMERA
@@ -132,6 +134,12 @@ function getPointLight(intensity) {
 function getSpotLight(intensity) {
   var light = new THREE.SpotLight(0xffffff, intensity);
   light.castShadow = true;
+  light.shadow.bias = 0.001;
+  //double shadow map resolution. default is 1024
+  light.shadow.mapSize.width = 2048;
+  light.shadow.mapSize.width = 2048;
+
+
   return light;
 }
 
