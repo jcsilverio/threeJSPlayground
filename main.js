@@ -29,11 +29,6 @@ function init() {
   scene.add(directionalLight);
   scene.add(boxGrid);
 
-  gui.add(directionalLight, 'intensity', 0, 10);
-  gui.add(directionalLight.position, 'x', 0, 20);
-  gui.add(directionalLight.position, 'y', 0, 20);
-  gui.add(directionalLight.position, 'z', 0, 20);
-
   var camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth/window.innerHeight,
@@ -41,21 +36,20 @@ function init() {
     1000
   );
 
-  // var camera = new THREE.OrthographicCamera(
-  //   -15, //camera frustrum left plane
-  //   15, //camera frustrum right plane
-  //   15, // top plane
-  //   -15, // bottom plane
-  //   1, //near plane
-  //   1000 //far plane
 
-  // );
+var cameraZPosition = new THREE.Group();
+var cameraXRotation = new THREE.Group();
+var cameraYRotation = new THREE.Group();
 
-  camera.position.x = 10;
-  camera.position.y = 18;
-  camera.position.z = -18;
 
-  camera.lookAt(new THREE.Vector3(0, 0, 0));
+cameraZPosition.add(camera);  //z position controller
+cameraXRotation.add(cameraZPosition);
+cameraYRotation.add(cameraXRotation);
+scene.add(cameraYRotation);
+
+ gui.add(cameraZPosition.position, 'z', 0, 100);
+ gui.add(cameraYRotation.rotation, 'y', -Math.PI, Math.PI);  //using PI, because rotation doesn't work with angles in THREE.js, but with radians.
+ gui.add(cameraXRotation.rotation, 'x', -Math.PI, Math.PI);
 
   var renderer = new THREE.WebGLRenderer();
   renderer.shadowMap.enabled = true;
@@ -68,7 +62,7 @@ function init() {
   update(renderer, scene, camera, controls, clock);
 
   return scene;
-}
+} //END INIT
 
 function getBox(w, h, d) {
   var geometry = new THREE.BoxGeometry(w, h, d);
