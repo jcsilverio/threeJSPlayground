@@ -105,7 +105,7 @@ new TWEEN.Tween({val: 0})
 
 function getBox(w, h, d) {
   var geometry = new THREE.BoxGeometry(w, h, d);
-  var material = new THREE.MeshPhongMaterial({
+  var material = new THREE.MeshStandardMaterial({
     color: 'rgb(120, 120, 120)'
   });
   var mesh = new THREE.Mesh(
