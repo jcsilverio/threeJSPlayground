@@ -18,7 +18,7 @@ function init() {
 
   plane.name = 'plane-1';
 
-  plane.rotation.x = Math.PI/2;
+  plane.rotation.x = Math.PI / 2;
   directionalLight.position.x = 13;
   directionalLight.position.y = 10;
   directionalLight.position.z = 10;
@@ -40,6 +40,16 @@ function init() {
     1,
     1000
   );
+
+  // var camera = new THREE.OrthographicCamera(
+  //   -15, //camera frustrum left plane
+  //   15, //camera frustrum right plane
+  //   15, // top plane
+  //   -15, // bottom plane
+  //   1, //near plane
+  //   1000 //far plane
+
+  // );
 
   camera.position.x = 10;
   camera.position.y = 18;
@@ -77,22 +87,22 @@ function getBox(w, h, d) {
 function getBoxGrid(amount, separationMultiplier) {
   var group = new THREE.Group();
 
-  for (var i=0; i<amount; i++) {
+  for (var i = 0; i < amount; i++) {
     var obj = getBox(1, 1, 1);
     obj.position.x = i * separationMultiplier;
-    obj.position.y = obj.geometry.parameters.height/2;
+    obj.position.y = obj.geometry.parameters.height / 2;
     group.add(obj);
-    for (var j=1; j<amount; j++) {
+    for (var j = 1; j < amount; j++) {
       var obj = getBox(1, 1, 1);
       obj.position.x = i * separationMultiplier;
-      obj.position.y = obj.geometry.parameters.height/2;
+      obj.position.y = obj.geometry.parameters.height / 2;
       obj.position.z = j * separationMultiplier;
       group.add(obj);
     }
   }
 
-  group.position.x = -(separationMultiplier * (amount-1))/2;
-  group.position.z = -(separationMultiplier * (amount-1))/2;
+  group.position.x = -(separationMultiplier * (amount - 1)) / 2;
+  group.position.z = -(separationMultiplier * (amount - 1)) / 2;
 
   return group;
 }
@@ -163,11 +173,11 @@ function update(renderer, scene, camera, controls, clock) {
   var timeElapsed = clock.getElapsedTime();
 
   var boxGrid = scene.getObjectByName('boxGrid');
-  boxGrid.children.forEach(function (child, index) {
+  boxGrid.children.forEach(function(child, index) {
     var x = timeElapsed * 1.5 + index;
 
-    child.scale.y = (noise.simplex2(x, x) +1) /2 + 0.001;
-    child.position.y = child.scale.y/2;
+    child.scale.y = (noise.simplex2(x, x) + 1) / 2 + 0.001;
+    child.position.y = child.scale.y / 2;
 
   })
 
