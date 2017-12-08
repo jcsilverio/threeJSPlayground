@@ -214,7 +214,7 @@ function update(renderer, scene, camera, controls, clock) {
   var timeElapsed = clock.getElapsedTime();
 
   var cameraZRotation = scene.getObjectByName('cameraZRotation');
-  cameraZRotation.rotation.z = noise.simplex2(timeElapsed * 1.5, timeElapsed * 1.5) * 0.02;
+  cameraZRotation.rotation.z = noise.simplex2(timeElapsed * 0.5, timeElapsed * 0.5) * 0.02;
 
   var boxGrid = scene.getObjectByName('boxGrid');
   boxGrid.children.forEach(function(child, index) {
