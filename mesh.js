@@ -1,4 +1,4 @@
-function initMesh() {
+function init() {
   var scene = new THREE.Scene();
   var clock = new THREE.Clock();
   var gui = new dat.GUI();
@@ -47,9 +47,9 @@ reflectionCube.format = THREE.RGBFormat;
 scene.background = reflectionCube;
 
   var loader = new THREE.TextureLoader();
-  planeMaterial.map = loader.load('assets/textures/concrete.jpg');
-  planeMaterial.bumpMap = loader.load('assets/textures/concrete.jpg');
-  planeMaterial.roughnessMap = loader.load('assets/textures/concrete.jpg');
+  planeMaterial.map = loader.load('assets/textures/concreteTexture.jpg');
+  planeMaterial.bumpMap = loader.load('assets/textures/concreteTexture.jpg');
+  planeMaterial.roughnessMap = loader.load('assets/textures/concreteTexture.jpg');
   planeMaterial.bumpScale = 0.01;
   planeMaterial.metalness = 0.1;
   planeMaterial.roughness = 0.49;
@@ -193,4 +193,4 @@ function update(renderer, scene, camera, clock) {
   });
 }
 
-var scene = initMesh();
+var scene = init();
