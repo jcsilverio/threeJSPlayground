@@ -1,4 +1,4 @@
-function init() {
+function initBox() {
   var scene = new THREE.Scene();
   var gui = new dat.GUI();
 
@@ -120,4 +120,4 @@ function update(renderer, scene, camera, controls) {
   })
 }
 
-var scene = init();
+// var scene = initBox();

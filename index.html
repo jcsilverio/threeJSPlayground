@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Three.js</title>
-	<style type="text/css">
-		html, body {margin: 0; padding: 0; overflow: hidden}
-	</style>
+  <title>Three.js Playground</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-	<div id="webgl"></div>
-     <script src="lib/Tween.min.js"></script>
-     <script src="lib/perlin.js"></script>
-     <script src="lib/dat.gui.min.js"></script>
-	<script src="lib/three.js"></script>
-     <script src="lib/OrbitControls.js"></script>
-	<script src="main.js"></script>
+  <div id="topBar" class="text-center">
+    <div id="pageHeader"> Three JS Playground</div>
+    <button id="button_01">Animations Fly-Through</button>
+    <button id="button_02">Anims - Static Grid</button>
+    <button id="button_03">Mesh - Rotate</button>
+  </div>
+  <div id="threeViewer">
+    <iframe src="mesh.html" style="position:fixed; top:80px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"></iframe>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="main.js"></script>
+  </div>
 </body>
+
 </html>
