@@ -3,10 +3,10 @@ function init() {
   var gui = new dat.GUI();
   var clock = new THREE.Clock();
 
-  var enableFog = false;
+  var enableFog = true;
 
   if (enableFog) {
-    scene.fog = new THREE.FogExp2(0xffffff, 0.2);
+    scene.fog = new THREE.FogExp2(0xffffff, 0.01);
   }
 
   var plane = getPlane(100);
