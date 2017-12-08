@@ -1,13 +1,21 @@
 function init() {
   var scene = new THREE.Scene();
+  var clock = new THREE.Clock();
   var gui = new dat.GUI();
+
+  var enableFog = true;
+
+  if (enableFog) {
+    scene.fog = new THREE.FogExp2('#381e06', 0.005);
+  }
 
   // initialize objects
   var sphereMaterial = getMaterial('standard', 'rgb(255, 255, 255)');
   var sphere = getSphere(sphereMaterial, 1, 24);
+  sphere.name = 'sphere';
 
   var planeMaterial = getMaterial('standard', 'rgb(255, 255, 255)');
-  var plane = getPlane(planeMaterial, 30);
+  var plane = getPlane(planeMaterial, 300);
 
   var lightLeft = getSpotLight(1, 'rgb(255, 220, 180)');
   var lightRight = getSpotLight(1, 'rgb(255, 220, 180)');
@@ -36,6 +44,7 @@ var urls = [
 var reflectionCube = new THREE.CubeTextureLoader().load(urls);
 reflectionCube.format = THREE.RGBFormat;
 
+scene.background = reflectionCube;
 
   var loader = new THREE.TextureLoader();
   planeMaterial.map = loader.load('assets/textures/concrete.jpg');
@@ -43,7 +52,7 @@ reflectionCube.format = THREE.RGBFormat;
   planeMaterial.roughnessMap = loader.load('assets/textures/concrete.jpg');
   planeMaterial.bumpScale = 0.01;
   planeMaterial.metalness = 0.1;
-  planeMaterial.roughness = 0.7;
+  planeMaterial.roughness = 0.49;
   planeMaterial.envMap = reflectionCube;
   sphereMaterial.roughnessMap = loader.load('assets/textures/fingerprints.jpg');
   sphereMaterial.envMap = reflectionCube;
@@ -53,7 +62,7 @@ reflectionCube.format = THREE.RGBFormat;
       var texture = planeMaterial[mapName];
       texture.wrapS = THREE.RepeatWrapping; //x is S in texture space
       texture.wrapT = THREE.RepeatWrapping; //y is T in texture space
-      texture.repeat.set(1.5, 1.5);
+      texture.repeat.set(15, 15);
 
   });
 
@@ -85,26 +94,28 @@ reflectionCube.format = THREE.RGBFormat;
   scene.add(lightRight);
 
   // camera
+  var cameraGroup = new THREE.Group();
   var camera = new THREE.PerspectiveCamera(
     45, // field of view
     window.innerWidth / window.innerHeight, // aspect ratio
     1, // near clipping plane
     1000 // far clipping plane
   );
-  camera.position.z = 7;
-  camera.position.x = -2;
-  camera.position.y = 7;
+  camera.position.z = 15;
+  camera.position.x = 0;
+  camera.position.y = 3;
   camera.lookAt(new THREE.Vector3(0, 0, 0));
+  cameraGroup.add(camera);
+  cameraGroup.name = 'sceneCameraGroup';
+  scene.add(cameraGroup);
 
   // renderer
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   document.getElementById('webgl').appendChild(renderer.domElement);
-
-  var controls = new THREE.OrbitControls( camera, renderer.domElement );
-
-  update(renderer, scene, camera, controls);
+  update(renderer, scene, camera, clock);
 
   return scene;
 }
@@ -167,11 +178,18 @@ function getPlane(material, size) {
   return obj;
 }
 
-function update(renderer, scene, camera, controls) {
-  controls.update();
+function update(renderer, scene, camera, clock) {
+  // rotate camera around the origin
+  var sceneCameraGroup = scene.getObjectByName('sceneCameraGroup');
+  if (sceneCameraGroup) {
+    sceneCameraGroup.rotation.y += 0.001;
+  }
+
+
+
   renderer.render(scene, camera);
   requestAnimationFrame(function() {
-    update(renderer, scene, camera, controls);
+    update(renderer, scene, camera, clock);
   });
 }
 
